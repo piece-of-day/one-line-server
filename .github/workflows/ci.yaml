@@ -1,0 +1,27 @@
+name: ci
+on:
+  workflow_dispatch:
+    push:
+      paths-ignore:
+        - ".github/**"
+      branches:
+        - "feature/**"
+
+jobs:
+  begin:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout cureent repo
+        uses: actions/checkout@v3
+      - name: Run kotlin test with gradle
+        shell: bash
+        run: ./gradlew clean test
+  ci:
+    runs-on: ubuntu-20.04
+    needs: [begin]
+    steps:
+      - name: Checkout cureent repo
+        uses: actions/checkout@v3
+      - name: Build kotlin project
+        shell: bash
+        run: ./gradlew build
