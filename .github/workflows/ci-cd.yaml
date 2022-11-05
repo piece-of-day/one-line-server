@@ -1,0 +1,19 @@
+name: ci-cd
+on:
+  workflow_dispatch:
+    push:
+      paths-ignore:
+        - ".github/**"
+      branches:
+        - "main"
+        - "develop"
+
+jobs:
+  ci:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout cureent repo
+        uses: actions/checkout@v3
+      - name: Build kotlin project
+        shell: bash
+        run: ./gradlew build
