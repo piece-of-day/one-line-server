@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Run kotlin test with gradle
         shell: bash
-        run: ./gradlew clean test
+        run: gradlew clean test
   ci:
     runs-on: ubuntu-20.04
     needs: [begin]
@@ -24,4 +24,4 @@ jobs:
         uses: actions/checkout@v3
       - name: Build kotlin project
         shell: bash
-        run: ./gradlew build
+        run: gradlew build
