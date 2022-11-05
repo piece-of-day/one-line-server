@@ -22,3 +22,18 @@ jobs:
       - name: Build kotlin project
         shell: bash
         run: ./gradlew build
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v2
+      - name: sTest & Build Docker image
+        id: build-docker
+        uses: docker/build-push-action@v3
+        env:
+          IMAGE_REGISTRY: ${{ secrets.ONE_LINE_REGISTRY }}
+          IMAGE_REPOSITORY: ${{ secrets.ONE_LINE_REPOSITORY }}
+          IMAGE_TAG: "dev"
+        with:
+          context: .
+          push: true
+          tag: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

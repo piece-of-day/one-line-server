@@ -21,7 +21,7 @@ jobs:
       - name: Run kotlin test with gradle
         shell: bash
         run: ./gradlew clean test
-  ci:
+  build-test:
     runs-on: ubuntu-20.04
     needs: [begin]
     steps:
