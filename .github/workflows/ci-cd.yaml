@@ -24,8 +24,7 @@ jobs:
         run: ./gradlew build
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v2
-      - name: sTest & Build Docker image
-        id: build-docker
+      - name: Test & Build Docker image
         uses: docker/build-push-action@v3
         env:
           IMAGE_REGISTRY: ${{ secrets.ONE_LINE_REGISTRY }}
@@ -34,6 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tag: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
