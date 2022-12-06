@@ -10,4 +10,9 @@ class HelloController {
     fun hello(): String? {
         return "hello"
     }
+
+    @GetMapping("/")
+    fun testMain(): String? {
+        return ""
+    }
 }
