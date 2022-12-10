@@ -1,5 +1,6 @@
 package kr.pieceofday.onelineserver.oauth
 
+import org.slf4j.LoggerFactory
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class OAuthService : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+class OAuthService : DefaultOAuth2UserService() {
+    val logger = LoggerFactory.getLogger(this::class.java)
 
     override fun loadUser(userRequest: OAuth2UserRequest?): OAuth2User {
-        println(1)
+        logger.info("start oauthService")
+        logger.info(userRequest.toString())
         val delegate = DefaultOAuth2UserService()
         val oAuth2User = delegate.loadUser(userRequest)
 
@@ -27,20 +30,8 @@ class OAuthService : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
             .userInfoEndpoint
             .userNameAttributeName
         val attributes = oAuth2User.attributes
-        println(2)
 
-//        TODO("User Domain 작성")
-        println(attributes)
-        println(userNameAttributeName)
-        println(registrationId)
-        println(DefaultOAuth2User(
-                Collections.singleton(SimpleGrantedAuthority("ROLE_USER")),
-                attributes,
-                userNameAttributeName
-        ))
-
-        TODO("User DB에 저장 및 업데이트")
-
+        logger.info("end oauthService")
         return DefaultOAuth2User(
             Collections.singleton(SimpleGrantedAuthority("ROLE_USER")),
             attributes,

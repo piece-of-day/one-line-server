@@ -1,10 +1,8 @@
 package kr.pieceofday.onelineserver.repository
 
-import org.springframework.stereotype.Repository
-
-class RedisSessionRepository: SessionRepository {
+class CacheSessionRepository: SessionRepository {
     override fun findUserPkById(sessionId: String): String {
-        TODO("Find UserPk by sessionId")
+        TODO("Not yet implemented")
     }
 
     override fun saveUserPkById(sessionId: String, userId: String) {
@@ -14,4 +12,5 @@ class RedisSessionRepository: SessionRepository {
     override fun checkUserPkById(sessionId: String): Boolean {
         TODO("Not yet implemented")
     }
+
 }

@@ -3,6 +3,7 @@ package kr.pieceofday.onelineserver.config
 import kr.pieceofday.onelineserver.oauth.CustomAuthorizationRequestRepository
 import kr.pieceofday.onelineserver.oauth.OAuth2AuthenticationSuccessHandler
 import kr.pieceofday.onelineserver.oauth.OAuthService
+import kr.pieceofday.onelineserver.repository.SessionRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -10,7 +11,8 @@ import org.springframework.security.web.SecurityFilterChain
 
 @EnableWebSecurity
 class SecurityConfig(
-    val oAuthService: OAuthService
+    val oAuthService: OAuthService,
+    val sessionRepository: SessionRepository
 ) {
 
     fun customAuthorizationRequestRepository(): CustomAuthorizationRequestRepository {
@@ -19,8 +21,7 @@ class SecurityConfig(
 
     @Bean
     fun oAuth2AuthenticationSuccessHandler(): OAuth2AuthenticationSuccessHandler {
-        TODO("SuccessHandler 작성")
-        return OAuth2AuthenticationSuccessHandler()
+        return OAuth2AuthenticationSuccessHandler(sessionRepository)
     }
 
     @Bean
@@ -30,15 +31,18 @@ class SecurityConfig(
             .headers().frameOptions().disable()
             .and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/hello").hasRole("USER")
+                .antMatchers("/").permitAll()
             .and()
-            .oauth2Login()
+                .oauth2Login()
+                    .userInfoEndpoint()
+                        .userService(oAuthService)
+            .and()
             .authorizationEndpoint()
                 .authorizationRequestRepository(customAuthorizationRequestRepository())
             .and()
-                .successHandler()
-                .userInfoEndpoint() // oauth 성공 이후 설정 시작
-//                .userService() 여기서 셋팅 -> 아이디 값
+                .successHandler(oAuth2AuthenticationSuccessHandler())
+
         return http.build()
     }
 }

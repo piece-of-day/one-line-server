@@ -1,11 +1,11 @@
 package kr.pieceofday.onelineserver.auth
 
 import kr.pieceofday.onelineserver.repository.SessionRepository
+import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.stereotype.Component
 
-@Component
+@Configuration
 class CookieProvider(
     val customUserDetailService: CustomUserDetailService,
     val sessionRepository: SessionRepository
