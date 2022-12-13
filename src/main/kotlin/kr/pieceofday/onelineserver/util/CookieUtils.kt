@@ -18,7 +18,7 @@ class CookieUtils {
             val cookies = request.cookies
             for (cookie in cookies) {
                 if (name.equals(cookie.name)) {
-                    return return cookie
+                    return cookie
                 }
             }
             return null
@@ -29,6 +29,14 @@ class CookieUtils {
             cookie.path = "/"
             cookie.isHttpOnly = true
             cookie.maxAge = maxAge
+
+            response.addCookie(cookie)
+        }
+
+        fun addCookie(response: HttpServletResponse, name: String, value: String) {
+            val cookie = Cookie(name, value)
+            cookie.path = "/"
+            cookie.isHttpOnly = true
 
             response.addCookie(cookie)
         }
@@ -56,7 +64,7 @@ class CookieUtils {
         fun <T> deserialize(cookie: Cookie?, cls: Class<T>): T? {
             return cls.cast(
                 SerializationUtils.deserialize(
-                    Base64.getUrlDecoder().decode(cookie?.value)
+                    Base64.getUrlDecoder().decode(cookie!!.value)
                 )
             )
         }

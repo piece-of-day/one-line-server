@@ -17,11 +17,14 @@ class AuthenticationFilter(
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         logger.info("doFileterInternal")
-        logger.info(CookieUtils.getCookie(request, CookieUtils.SESSION_COOKIE_NAME)?.value)
-        logger.info(CookieUtils.getCookie(request, CookieUtils.SESSION_COOKIE_NAME)?.value?.let { cookieProvider.getAuthentication(it) })
+        for ( i in request.cookies ) {
+            logger.info("${i.name}, ${i.value}")
+        }
 
         getSessionIdAtRequest(request)?.let {
+            logger.info("getSessionIdAtRequest")
             val authentication = cookieProvider.getAuthentication(it)
+            logger.info(authentication)
             SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain.doFilter(request, response)

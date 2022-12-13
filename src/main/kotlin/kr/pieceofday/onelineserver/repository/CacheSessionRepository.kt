@@ -1,16 +1,24 @@
 package kr.pieceofday.onelineserver.repository
 
-class CacheSessionRepository: SessionRepository {
+import kr.pieceofday.onelineserver.domain.User
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Repository
+
+@Repository
+class CacheSessionRepository(
+): SessionRepository {
+    val userSessionMap = mutableMapOf<String, String>()
+
     override fun findUserPkById(sessionId: String): String {
-        TODO("Not yet implemented")
+        return userSessionMap[sessionId] ?: "null"
     }
 
     override fun saveUserPkById(sessionId: String, userId: String) {
-        TODO("Not yet implemented")
+        userSessionMap[sessionId] = userId
     }
 
     override fun checkUserPkById(sessionId: String): Boolean {
-        TODO("Not yet implemented")
+        return userSessionMap.containsKey(sessionId)
     }
 
 }

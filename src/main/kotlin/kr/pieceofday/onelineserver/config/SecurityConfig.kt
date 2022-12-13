@@ -16,7 +16,7 @@ class SecurityConfig(
 ) {
 
     fun customAuthorizationRequestRepository(): CustomAuthorizationRequestRepository {
-        return CustomAuthorizationRequestRepository()
+        return CustomAuthorizationRequestRepository(sessionRepository)
     }
 
     @Bean
@@ -34,14 +34,13 @@ class SecurityConfig(
                 .antMatchers("/hello").hasRole("USER")
                 .antMatchers("/").permitAll()
             .and()
-                .oauth2Login()
-                    .userInfoEndpoint()
-                        .userService(oAuthService)
-            .and()
+            .oauth2Login()
             .authorizationEndpoint()
                 .authorizationRequestRepository(customAuthorizationRequestRepository())
             .and()
                 .successHandler(oAuth2AuthenticationSuccessHandler())
+                .userInfoEndpoint()
+                .userService(oAuthService)
 
         return http.build()
     }
