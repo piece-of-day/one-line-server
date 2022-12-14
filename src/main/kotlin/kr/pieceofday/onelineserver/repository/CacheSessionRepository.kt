@@ -20,4 +20,8 @@ class CacheSessionRepository(
         return userSessionMap.containsKey(sessionId)
     }
 
+    override fun remove(userId: String) {
+        TODO("Not yet implemented")
+    }
+
 }

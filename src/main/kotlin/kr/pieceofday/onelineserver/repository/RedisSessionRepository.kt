@@ -10,7 +10,7 @@ class RedisSessionRepository(
     val valueOperations = redisTemplate.opsForValue()
 
     override fun findUserPkById(sessionId: String): String? {
-        return valueOperations.get(sessionId)
+        return valueOperations.get("session_id:"+sessionId)
     }
 
     override fun saveUserPkById(sessionId: String, userId: String) {
@@ -21,7 +21,13 @@ class RedisSessionRepository(
     }
 
     override fun checkUserPkById(sessionId: String): Boolean {
-        val userPkId = valueOperations.get(sessionId)
+        val userPkId = valueOperations.get("session_id:"+sessionId)
         return userPkId != null
+    }
+
+    override fun remove(userId: String) {
+        valueOperations.getAndDelete("user_id:"+userId)?.let {
+            redisTemplate.delete("session_id:"+it)
+        }
     }
 }
