@@ -4,7 +4,6 @@ import kr.pieceofday.onelineserver.domain.User
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Repository
 
-@Repository
 class CacheSessionRepository(
 ): SessionRepository {
     val userSessionMap = mutableMapOf<String, String>()

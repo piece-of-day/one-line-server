@@ -17,9 +17,6 @@ class AuthenticationFilter(
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         logger.info("doFileterInternal")
-        for ( i in request.cookies ) {
-            logger.info("${i.name}, ${i.value}")
-        }
 
         getSessionIdAtRequest(request)?.let {
             logger.info("getSessionIdAtRequest")

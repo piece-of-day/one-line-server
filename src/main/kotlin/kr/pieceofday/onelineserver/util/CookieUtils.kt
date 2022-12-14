@@ -16,6 +16,9 @@ class CookieUtils {
 
         fun getCookie(request: HttpServletRequest, name: String): Cookie? {
             val cookies = request.cookies
+            if (cookies == null) {
+                return null
+            }
             for (cookie in cookies) {
                 if (name.equals(cookie.name)) {
                     return cookie

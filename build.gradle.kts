@@ -32,6 +32,9 @@ dependencies {
 	// oauth
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client:3.0.0")
 
+	// redis
+	implementation ("org.springframework.boot:spring-boot-starter-data-redis")
+
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

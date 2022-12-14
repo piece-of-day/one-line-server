@@ -10,12 +10,13 @@ class CookieProvider(
     val customUserDetailService: CustomUserDetailService,
     val sessionRepository: SessionRepository
 ) {
-    fun getAuthentication(sessionId: String): Authentication {
-        val userDetails = customUserDetailService.loadUserByUsername(getUserPk(sessionId))
+    fun getAuthentication(sessionId: String): Authentication? {
+        val userPk = getUserPk(sessionId) ?: return null
+        val userDetails = customUserDetailService.loadUserByUsername(userPk)
         return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
     }
 
-    private fun getUserPk(sessionId: String): String {
+    private fun getUserPk(sessionId: String): String? {
         return sessionRepository.findUserPkById(sessionId)
     }
 }
