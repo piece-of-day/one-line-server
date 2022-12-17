@@ -14,9 +14,9 @@ abstract class BaseEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    lateinit var createdDate: LocalDateTime
+    var createdDate: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
     @Column(nullable = false)
-    lateinit var modifiedDate: LocalDateTime
+    var modifiedDate: LocalDateTime = LocalDateTime.now()
 }
