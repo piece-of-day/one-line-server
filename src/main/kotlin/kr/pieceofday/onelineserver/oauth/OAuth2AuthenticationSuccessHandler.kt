@@ -1,6 +1,6 @@
 package kr.pieceofday.onelineserver.oauth
 
-import kr.pieceofday.onelineserver.repository.SessionRepository
+import kr.pieceofday.onelineserver.auth.SessionRepository
 import kr.pieceofday.onelineserver.util.CookieUtils
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.Authentication

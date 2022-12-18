@@ -3,7 +3,7 @@ package kr.pieceofday.onelineserver.config
 import kr.pieceofday.onelineserver.oauth.CustomAuthorizationRequestRepository
 import kr.pieceofday.onelineserver.oauth.OAuth2AuthenticationSuccessHandler
 import kr.pieceofday.onelineserver.oauth.OAuthService
-import kr.pieceofday.onelineserver.repository.SessionRepository
+import kr.pieceofday.onelineserver.auth.SessionRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
