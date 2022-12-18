@@ -1,8 +1,6 @@
-package kr.pieceofday.onelineserver.repository
+package kr.pieceofday.onelineserver.auth
 
-import kr.pieceofday.onelineserver.domain.User
-import org.springframework.context.annotation.Bean
-import org.springframework.stereotype.Repository
+import kr.pieceofday.onelineserver.auth.SessionRepository
 
 class CacheSessionRepository(
 ): SessionRepository {

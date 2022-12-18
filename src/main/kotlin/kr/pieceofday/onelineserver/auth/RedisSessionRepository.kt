@@ -1,4 +1,4 @@
-package kr.pieceofday.onelineserver.repository
+package kr.pieceofday.onelineserver.auth
 
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository

@@ -1,18 +1,19 @@
 package kr.pieceofday.onelineserver.controller
 
 import kr.pieceofday.onelineserver.domain.User
-import kr.pieceofday.onelineserver.repository.SessionRepository
+import kr.pieceofday.onelineserver.auth.SessionRepository
 import kr.pieceofday.onelineserver.util.CookieUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @RestController
+@RequestMapping("users")
 class UserController(
     val sessionRepository: SessionRepository
 ) {

@@ -1,7 +1,6 @@
 package kr.pieceofday.onelineserver.oauth
 
-import kr.pieceofday.onelineserver.repository.CacheSessionRepository
-import kr.pieceofday.onelineserver.repository.SessionRepository
+import kr.pieceofday.onelineserver.auth.SessionRepository
 import kr.pieceofday.onelineserver.util.CookieUtils.Companion.COOKIE_EXPIRE_SECONDS
 import kr.pieceofday.onelineserver.util.CookieUtils.Companion.OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME
 import kr.pieceofday.onelineserver.util.CookieUtils.Companion.REDIRECT_URI_PARAM_COOKIE_NAME

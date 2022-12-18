@@ -1,4 +1,4 @@
-package kr.pieceofday.onelineserver.repository
+package kr.pieceofday.onelineserver.auth
 
 interface SessionRepository {
     fun findUserPkById(sessionId: String): String?
