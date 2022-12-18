@@ -1,26 +1,50 @@
 package kr.pieceofday.onelineserver.service
 
+import kr.pieceofday.onelineserver.domain.LikeLine
 import kr.pieceofday.onelineserver.domain.Line
 import kr.pieceofday.onelineserver.domain.User
+import kr.pieceofday.onelineserver.repository.LikeLineRepository
 import kr.pieceofday.onelineserver.repository.LineRepository
+import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
+@Service
 class LineBusinessServiceImpl(
     val lineRepository: LineRepository,
+    val likeLineRepository: LikeLineRepository,
     val lineUtilService: LineUtilService
 ): LineBusinessService {
+
+    @Transactional
     override fun likedLine(user: User, id: Long): Line {
-        TODO("Not yet implemented")
+        val line = lineUtilService.getLineOrThrowError(id)
+
+        val likeLine = LikeLine(
+            user = user,
+            line = line
+        )
+
+        likeLineRepository.save(likeLine)
+        line.liked += 1
+        return line
     }
 
-    override fun reportLine(user: User, line: Line): Line {
-        TODO("Not yet implemented")
+    override fun reportLine(user: User, id: Long): Line {
+        val line = lineUtilService.getLineOrThrowError(id)
+
+        line.reported += 1
+        if (line.reported >= 5) {
+            TODO("Implement Line Delete And after process")
+        }
+
+        return line
     }
 
-    override fun readTop10Line() {
-        TODO("Not yet implemented")
+    override fun readTop10Line(): List<Line> {
+        return lineRepository.findTop10ByOrderByLikedDesc()
     }
 
-    override fun readLikedLine(user: User) {
+    override fun readLikedLine(user: User): List<Line> {
         TODO("Not yet implemented")
     }
 }

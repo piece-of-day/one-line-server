@@ -17,7 +17,8 @@ class LineController(
 ) {
 
     @PostMapping("")
-    fun createLine(@AuthenticationPrincipal user: User, createLineDto: CreateLineDTO): ResponseEntity<ResponseLineDTO> {
+    fun createLine(@AuthenticationPrincipal user: User, @RequestBody createLineDto: CreateLineDTO): ResponseEntity<ResponseLineDTO> {
+        println(createLineDto)
         return ResponseEntity.status(HttpStatus.CREATED).body(
             ResponseLineDTO.makeDTO(lineService.createLine(user, createLineDto))
         )
@@ -31,7 +32,7 @@ class LineController(
     }
 
     @PatchMapping("{id}")
-    fun updateLine(@AuthenticationPrincipal user: User, @PathVariable(value = "id") id: Long, updateLineDTO: UpdateLineDTO): ResponseEntity<ResponseLineDTO> {
+    fun updateLine(@AuthenticationPrincipal user: User, @PathVariable(value = "id") id: Long, @RequestBody updateLineDTO: UpdateLineDTO): ResponseEntity<ResponseLineDTO> {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseLineDTO.makeDTO(lineService.updateLine(user, id, updateLineDTO))
         )

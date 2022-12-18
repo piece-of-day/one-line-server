@@ -6,6 +6,6 @@ import kr.pieceofday.onelineserver.domain.User
 interface LineBusinessService {
     fun likedLine(user: User, id: Long): Line
     fun reportLine(user: User, id: Long): Line
-    fun readTop10Line()
-    fun readLikedLine(user: User)
+    fun readTop10Line(): List<Line>
+    fun readLikedLine(user: User): List<Line>
 }
