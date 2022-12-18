@@ -10,7 +10,8 @@ import javax.naming.AuthenticationException
 
 @Service
 class LineServiceImpl(
-    val lineRepository: LineRepository
+    val lineRepository: LineRepository,
+    val lineUtilService: LineUtilService
 ): LineService {
     override fun createLine(user: User, createLineDto: CreateLineDTO): Line {
         val line = Line(
@@ -28,8 +29,8 @@ class LineServiceImpl(
     }
 
     override fun updateLine(user: User, id: Long, updateLineDto: UpdateLineDTO): Line {
-        val line = getLineOrThrowError(id)
-        checkAuthenticationOrThrowError(user, line)
+        val line = lineUtilService.getLineOrThrowError(id)
+        lineUtilService.checkAuthenticationOrThrowError(user, line)
 
         line.title = updateLineDto.title.name
         line.content = updateLineDto.content
@@ -38,19 +39,10 @@ class LineServiceImpl(
     }
 
     override fun deleteLine(user: User, id: Long) {
-        val line = getLineOrThrowError(id)
-        checkAuthenticationOrThrowError(user, line)
+        val line = lineUtilService.getLineOrThrowError(id)
+        lineUtilService.checkAuthenticationOrThrowError(user, line)
 
         lineRepository.delete(line)
     }
 
-    private fun getLineOrThrowError(id: Long): Line {
-        return lineRepository.findById(id).orElseThrow { throw IllegalArgumentException("잘못된 id 값입니다.") }
-    }
-
-    private fun checkAuthenticationOrThrowError(user: User, line: Line) {
-        if (user.id != line.user.id) {
-            throw AuthenticationException("권한이 없습니다.")
-        }
-    }
 }

@@ -22,5 +22,6 @@ data class Line(
     var reported: Long = 0,
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     var user: User
 ): BaseEntity()
