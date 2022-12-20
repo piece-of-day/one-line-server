@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @EnableWebSecurity
 class SecurityConfig(
@@ -22,6 +25,16 @@ class SecurityConfig(
     @Bean
     fun oAuth2AuthenticationSuccessHandler(): OAuth2AuthenticationSuccessHandler {
         return OAuth2AuthenticationSuccessHandler(sessionRepository)
+    }
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.allowedOrigins = listOf("https://today-one-line.vercel.app")
+        configuration.allowedMethods = listOf("GET", "POST", "PATCH", "DELETE")
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
+        return source
     }
 
     @Bean
