@@ -28,4 +28,11 @@ class LineBusinessController(
             lineBusinessService.readTop10Line().map { ResponseLineDTO.makeDTO(it) }
         )
     }
+
+    @GetMapping("liked")
+    fun readLikedLine(@AuthenticationPrincipal user: User): ResponseEntity<List<ResponseLineDTO>> {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            lineBusinessService.readLikedLine(user).map { ResponseLineDTO.makeDTO(it) }
+        )
+    }
 }

@@ -29,6 +29,7 @@ class LineBusinessServiceImpl(
         return line
     }
 
+    @Transactional
     override fun reportLine(user: User, id: Long): Line {
         val line = lineUtilService.getLineOrThrowError(id)
 
@@ -36,7 +37,6 @@ class LineBusinessServiceImpl(
         if (line.reported >= 5) {
             TODO("Implement Line Delete And after process")
         }
-
         return line
     }
 
@@ -45,6 +45,8 @@ class LineBusinessServiceImpl(
     }
 
     override fun readLikedLine(user: User): List<Line> {
-        TODO("Not yet implemented")
+        return likeLineRepository.findByUser(user)
+            .map { it.line }
+            .toSet().toList()
     }
 }
