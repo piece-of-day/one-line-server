@@ -1,6 +1,7 @@
 package kr.pieceofday.onelineserver.repository
 
 import kr.pieceofday.onelineserver.domain.LikeLine
+import kr.pieceofday.onelineserver.domain.User
 import kr.pieceofday.onelineserver.dto.`interface`.Top10LikeInterface
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
@@ -17,4 +18,5 @@ interface LikeLineRepository: CrudRepository<LikeLine, Long> {
         "limit 10", nativeQuery = true)
     fun readTop10ListAboutLikeLine(): List<Top10LikeInterface>
 
+    fun findByUser(user: User): List<LikeLine>
 }
