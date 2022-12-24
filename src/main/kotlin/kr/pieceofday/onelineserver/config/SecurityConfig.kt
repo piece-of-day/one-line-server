@@ -31,7 +31,9 @@ class SecurityConfig(
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = listOf("https://today-one-line.vercel.app", "http://localhost:3000")
-        configuration.allowedMethods = listOf("GET", "POST", "PATCH", "DELETE")
+        configuration.allowedMethods = listOf("*")
+        configuration.allowCredentials = true
+        configuration.maxAge = 3600L
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
