@@ -7,12 +7,15 @@ import kr.pieceofday.onelineserver.dto.UpdateLineDTO
 import kr.pieceofday.onelineserver.repository.LineRepository
 import org.springframework.stereotype.Service
 import javax.naming.AuthenticationException
+import javax.transaction.Transactional
 
 @Service
 class LineServiceImpl(
     val lineRepository: LineRepository,
     val lineUtilService: LineUtilService
 ): LineService {
+
+    @Transactional
     override fun createLine(user: User, createLineDto: CreateLineDTO): Line {
         val line = Line(
             title = createLineDto.title.name,
@@ -25,9 +28,11 @@ class LineServiceImpl(
     }
 
     override fun readLine(cnt: Int): List<Line> {
-        TODO("Get Random Line for specified Line")
+        val seletedLine = lineRepository.selectRandomLine()
+        return seletedLine
     }
 
+    @Transactional
     override fun updateLine(user: User, id: Long, updateLineDto: UpdateLineDTO): Line {
         val line = lineUtilService.getLineOrThrowError(id)
         lineUtilService.checkAuthenticationOrThrowError(user, line)
@@ -38,6 +43,7 @@ class LineServiceImpl(
         return line
     }
 
+    @Transactional
     override fun deleteLine(user: User, id: Long) {
         val line = lineUtilService.getLineOrThrowError(id)
         lineUtilService.checkAuthenticationOrThrowError(user, line)
