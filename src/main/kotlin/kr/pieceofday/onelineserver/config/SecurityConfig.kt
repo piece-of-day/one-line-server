@@ -30,7 +30,7 @@ class SecurityConfig(
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("https://today-one-line.vercel.app")
+        configuration.allowedOrigins = listOf("https://today-one-line.vercel.app", "http://localhost:3000")
         configuration.allowedMethods = listOf("GET", "POST", "PATCH", "DELETE")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
