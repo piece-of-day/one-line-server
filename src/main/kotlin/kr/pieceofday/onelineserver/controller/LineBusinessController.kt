@@ -2,6 +2,8 @@ package kr.pieceofday.onelineserver.controller
 
 import kr.pieceofday.onelineserver.domain.User
 import kr.pieceofday.onelineserver.dto.ResponseLineDTO
+import kr.pieceofday.onelineserver.enum.LineType
+import kr.pieceofday.onelineserver.enum.LineTypeDTO
 import kr.pieceofday.onelineserver.service.LineBusinessService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,5 +36,10 @@ class LineBusinessController(
         return ResponseEntity.status(HttpStatus.OK).body(
             lineBusinessService.readLikedLine(user).map { ResponseLineDTO.makeDTO(it) }
         )
+    }
+
+    @GetMapping("title")
+    fun readLineTitle(): ResponseEntity<List<LineType>> {
+        return ResponseEntity.status(HttpStatus.OK).body(LineType.values().toList())
     }
 }
