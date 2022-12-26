@@ -39,7 +39,7 @@ class LineBusinessController(
     }
 
     @GetMapping("title")
-    fun readLineTitle(): ResponseEntity<List<LineType>> {
-        return ResponseEntity.status(HttpStatus.OK).body(LineType.values().toList())
+    fun readLineTitle(): ResponseEntity<List<LineTypeDTO>> {
+        return ResponseEntity.status(HttpStatus.OK).body(LineType.allValues())
     }
 }
