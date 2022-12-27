@@ -16,16 +16,14 @@ class LineBusinessServiceImpl(
 ): LineBusinessService {
 
     @Transactional
-    override fun likedLine(user: User, id: Long): Line {
+    override fun likedLine(user: User?, id: Long): Line {
         val line = lineUtilService.getLineOrThrowError(id)
-
-        val likeLine = LikeLine(
-            user = user,
-            line = line
-        )
-
-        likeLineRepository.save(likeLine)
         line.liked += 1
+
+        user?.let {
+            val likeLine = likeLineRepository.findByUserAndLine(user, line).orElse(LikeLine(user = user, line = line))
+            likeLineRepository.save(likeLine)
+        }
         return line
     }
 

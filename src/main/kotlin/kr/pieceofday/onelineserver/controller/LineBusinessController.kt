@@ -18,7 +18,7 @@ class LineBusinessController(
 ) {
 
     @PostMapping("{id}/like")
-    fun likeLine(@AuthenticationPrincipal user: User, @PathVariable(value = "id") id: Long ): ResponseEntity<ResponseLineDTO> {
+    fun likeLine(@AuthenticationPrincipal user: User?, @PathVariable(value = "id") id: Long): ResponseEntity<ResponseLineDTO> {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseLineDTO.makeDTO(lineBusinessService.likedLine(user, id))
         )
