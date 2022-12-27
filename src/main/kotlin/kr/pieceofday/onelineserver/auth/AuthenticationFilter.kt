@@ -19,7 +19,6 @@ class AuthenticationFilter(
         logger.info("doFileterInternal")
 
         getSessionIdAtRequest(request)?.let {
-            logger.info("getSessionIdAtRequest")
             val authentication = cookieProvider.getAuthentication(it)
             logger.info(authentication)
             SecurityContextHolder.getContext().authentication = authentication

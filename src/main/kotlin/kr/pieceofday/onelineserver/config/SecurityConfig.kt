@@ -4,6 +4,9 @@ import kr.pieceofday.onelineserver.oauth.CustomAuthorizationRequestRepository
 import kr.pieceofday.onelineserver.oauth.OAuth2AuthenticationSuccessHandler
 import kr.pieceofday.onelineserver.oauth.OAuthService
 import kr.pieceofday.onelineserver.auth.SessionRepository
+import kr.pieceofday.onelineserver.repository.LikeLineRepository
+import kr.pieceofday.onelineserver.repository.LineRepository
+import kr.pieceofday.onelineserver.repository.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -15,7 +18,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 class SecurityConfig(
     val oAuthService: OAuthService,
-    val sessionRepository: SessionRepository
+    val sessionRepository: SessionRepository,
+    val likeLineRepository: LikeLineRepository,
+    val userRepository: UserRepository,
+    val lineRepository: LineRepository
 ) {
 
     fun customAuthorizationRequestRepository(): CustomAuthorizationRequestRepository {
@@ -24,7 +30,7 @@ class SecurityConfig(
 
     @Bean
     fun oAuth2AuthenticationSuccessHandler(): OAuth2AuthenticationSuccessHandler {
-        return OAuth2AuthenticationSuccessHandler(sessionRepository)
+        return OAuth2AuthenticationSuccessHandler(sessionRepository, likeLineRepository, userRepository, lineRepository)
     }
 
     @Bean

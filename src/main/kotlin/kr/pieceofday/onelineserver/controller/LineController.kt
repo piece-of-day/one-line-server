@@ -18,7 +18,6 @@ class LineController(
 
     @PostMapping("")
     fun createLine(@AuthenticationPrincipal user: User, @RequestBody createLineDto: CreateLineDTO): ResponseEntity<ResponseLineDTO> {
-        println(createLineDto)
         return ResponseEntity.status(HttpStatus.CREATED).body(
             ResponseLineDTO.makeDTO(lineService.createLine(user, createLineDto))
         )
